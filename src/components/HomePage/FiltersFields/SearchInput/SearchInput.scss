@@ -1,0 +1,43 @@
+@import "../../../../constants/colors.scss";
+
+.light .SearchInput {
+  background-color: $White;
+  input {
+    color: $DarkGrayLightModeInput;
+  }
+  input::placeholder {
+    color: $DarkGrayLightModeInput;
+  }
+}
+
+.dark .SearchInput {
+  background-color: $DarkBlueDarkModeElements;
+  input {
+    color: $White;
+  }
+  input::placeholder {
+    color: $White;
+  }
+}
+
+.SearchInput {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 0 20px;
+}
+
+.inputContainer {
+  margin-left: 10px;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  height: 47px;
+  padding: 0;
+}
+
+input:focus {
+  outline: none;
+}
