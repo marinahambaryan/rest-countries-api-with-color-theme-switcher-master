@@ -12,7 +12,12 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState("All");
 
   useEffect(() => {
-    setFilteredCountriesData(calculateDropdownFilterResult(selectedFilter));
+    setFilteredCountriesData(
+      calculateDropdownFilterResult(
+        selectedFilter,
+        calculateSearchFilterResult(searchInputValue, countriesData)
+      )
+    );
   }, [selectedFilter]);
 
   useEffect(() => {
@@ -24,6 +29,7 @@ function App() {
         setFilters(getFilters(data.countries));
       });
   }, []);
+
   const getFilters = (data) => {
     return [
       "All",
@@ -31,22 +37,30 @@ function App() {
       "Oceania",
     ];
   };
-  const calculateDropdownFilterResult = (selectedFilter) => {
+
+  const calculateDropdownFilterResult = (selectedFilter, initialData) => {
     return selectedFilter !== "All"
-      ? countriesData.filter((item) => item.region === selectedFilter)
-      : countriesData;
+      ? initialData.filter((item) => item.region === selectedFilter)
+      : initialData;
   };
+
+  const calculateSearchFilterResult = (searchedFilter, initialData) => {
+    return searchedFilter !== ""
+      ? initialData.filter((item) =>
+          item.name.toLowerCase().includes(searchedFilter)
+        )
+      : initialData;
+  };
+
   const handleInputChange = (e) => {
     let value = e.target.value;
-    let initialFilteredData = calculateDropdownFilterResult(selectedFilter);
-
+    let initialFilteredData = calculateDropdownFilterResult(
+      selectedFilter,
+      countriesData
+    );
     setSearchInputValue(value);
     setFilteredCountriesData(
-      value !== ""
-        ? initialFilteredData.filter((item) =>
-            item.name.toLowerCase().includes(value)
-          )
-        : initialFilteredData
+      calculateSearchFilterResult(value, initialFilteredData)
     );
   };
 
