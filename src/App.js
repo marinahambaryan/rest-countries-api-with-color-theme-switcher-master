@@ -12,11 +12,7 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState("All");
 
   useEffect(() => {
-    setFilteredCountriesData(
-      selectedFilter !== "All"
-        ? countriesData.filter((item) => item.region === selectedFilter)
-        : countriesData
-    );
+    setFilteredCountriesData(calculateDropdownFilterResult(selectedFilter));
   }, [selectedFilter]);
 
   useEffect(() => {
@@ -35,12 +31,27 @@ function App() {
       "Oceania",
     ];
   };
+  const calculateDropdownFilterResult = (selectedFilter) => {
+    return selectedFilter !== "All"
+      ? countriesData.filter((item) => item.region === selectedFilter)
+      : countriesData;
+  };
   const handleInputChange = (e) => {
-    setSearchInputValue(e.target.value);
+    let value = e.target.value;
+    let initialFilteredData = calculateDropdownFilterResult(selectedFilter);
+
+    setSearchInputValue(value);
+    setFilteredCountriesData(
+      value !== ""
+        ? initialFilteredData.filter((item) =>
+            item.name.toLowerCase().includes(value)
+          )
+        : initialFilteredData
+    );
   };
 
-  const handleSelectedFilterChange = (e) => {
-    setSelectedFilter(e.target.value);
+  const handleSelectedFilterChange = (e, item) => {
+    setSelectedFilter(item);
   };
 
   return (
