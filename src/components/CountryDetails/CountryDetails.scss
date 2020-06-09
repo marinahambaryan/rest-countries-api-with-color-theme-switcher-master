@@ -1,0 +1,45 @@
+.CountryDetails {
+  font-size: 16px;
+  padding: 35px 50px;
+
+  .countryContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    .detailPart {
+      flex: 1;
+    }
+    .detailsContainer {
+      .mainDetails {
+        display: flex;
+        justify-content: space-between;
+        white-space: nowrap;
+        flex-wrap: wrap;
+        .mainDetailsFirst {
+          margin-right: 20px;
+          margin-bottom: 20px;
+        }
+      }
+      .borderCountriesSectionContainer {
+        margin-top: 40px;
+        .borderCountriesSection {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          span {
+            margin-right: 10px;
+          }
+        }
+      }
+      span {
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .borderCountries {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

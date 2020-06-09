@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./components/HomePage/HomePage";
+import CountryDetails from "./components/CountryDetails/CountryDetails";
 import "./App.scss";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [isModeLight, setIsModeLight] = useState(false);
@@ -23,11 +25,9 @@ function App() {
     fetch(getApiLink("", "all"))
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setCountriesData(data);
         setFilteredCountriesData(data);
         setFilters(getFilters(data));
-        console.log(getFilters(data));
       });
   }, []);
 
@@ -86,17 +86,29 @@ function App() {
           mode={isModeLight}
           onModeClick={() => setIsModeLight(!isModeLight)}
         />
-        <HomePage
-          data={filteredCountriesData}
-          filters={filters}
-          selectedFilter={selectedFilter}
-          searchInputValue={searchInputValue}
-          changeSelectedFilter={handleSelectedFilterChange}
-          handleInputChange={handleInputChange}
-        />
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <HomePage
+                data={filteredCountriesData}
+                filters={filters}
+                selectedFilter={selectedFilter}
+                searchInputValue={searchInputValue}
+                changeSelectedFilter={handleSelectedFilterChange}
+                handleInputChange={handleInputChange}
+              />
+            </Route>
+
+            <Route path={`/:countryName`}>
+              <CountryDetails />
+            </Route>
+          </Switch>
+        </Router>
       </div>
     </div>
   );
 }
+
+function Home() {}
 
 export default App;
