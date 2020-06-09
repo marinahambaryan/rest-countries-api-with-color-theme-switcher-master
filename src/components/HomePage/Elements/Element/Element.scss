@@ -25,3 +25,8 @@
 .dark .Element {
   background-color: $DarkBlueDarkModeElements;
 }
+
+.flag .imageContainer {
+  background-size: cover;
+  min-height: 160px;
+}

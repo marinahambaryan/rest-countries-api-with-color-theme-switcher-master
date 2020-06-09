@@ -6,7 +6,10 @@ function Element(props) {
   return (
     <div className="Element">
       <div className="flag">
-        <Flag code={props.elementData.flag} />
+        <div
+          className="imageContainer"
+          style={{ backgroundImage: `url(${props.elementData.flag})` }}
+        ></div>
       </div>
       <div className="countryDetails">
         <div className="countryName">{props.elementData.name}</div>

@@ -12,34 +12,45 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState("All");
 
   useEffect(() => {
-    setFilteredCountriesData(
-      calculateDropdownFilterResult(
-        selectedFilter,
-        calculateSearchFilterResult(searchInputValue, countriesData)
-      )
-    );
+    fetch(getApiLink("region", selectedFilter))
+      .then((response) => response.json())
+      .then((data) => {
+        setFilteredCountriesData(data);
+      });
   }, [selectedFilter]);
 
   useEffect(() => {
-    fetch("/data/data.json")
+    fetch(getApiLink("", "all"))
       .then((response) => response.json())
       .then((data) => {
-        setCountriesData(data.countries);
-        setFilteredCountriesData(data.countries);
-        setFilters(getFilters(data.countries));
+        console.log(data);
+        setCountriesData(data);
+        setFilteredCountriesData(data);
+        setFilters(getFilters(data));
+        console.log(getFilters(data));
       });
   }, []);
 
+  const getApiLink = (filter, filterValue) => {
+    return `
+    https://restcountries.eu/rest/v2/${
+      filterValue.toLowerCase() !== "all" ? filter + "/" + filterValue : "all"
+    }`;
+  };
+
   const getFilters = (data) => {
-    return [
-      "All",
-      ...new Set(data.map((country) => country.region)),
-      "Oceania",
-    ];
+    var resArr = [];
+    data.forEach(function (item) {
+      var i = resArr.findIndex((x) => x === item.region);
+      if (i <= -1) {
+        resArr.push(item.region);
+      }
+    });
+    return ["All", ...resArr];
   };
 
   const calculateDropdownFilterResult = (selectedFilter, initialData) => {
-    return selectedFilter !== "All"
+    return selectedFilter.toLowerCase() !== "all"
       ? initialData.filter((item) => item.region === selectedFilter)
       : initialData;
   };
@@ -60,7 +71,7 @@ function App() {
     );
     setSearchInputValue(value);
     setFilteredCountriesData(
-      calculateSearchFilterResult(value, initialFilteredData)
+      calculateSearchFilterResult(value.toLowerCase(), initialFilteredData)
     );
   };
 
