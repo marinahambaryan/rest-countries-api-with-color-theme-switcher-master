@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Shadow from "./components/Shadow/Shadow";
 
 function App() {
-  const [isModeLight, setIsModeLight] = useState(false);
+  const [isModeLight, setIsModeLight] = useState(true);
   const [countriesData, setCountriesData] = useState([]);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [filteredCountriesData, setFilteredCountriesData] = useState([]);
