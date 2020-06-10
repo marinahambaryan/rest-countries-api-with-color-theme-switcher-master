@@ -2,9 +2,15 @@
 
 .Navigation {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
+  justify-content: center;
+  .NavigationItems {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    padding: 20px 50px;
+  }
 }
 
 .light {
@@ -32,4 +38,12 @@
 .mode-text {
   font-size: 14px;
   font-weight: 600;
+}
+
+@media only screen and (max-width: 450px) {
+  .Navigation {
+    .NavigationItems {
+      padding: 30px 20px;
+    }
+  }
 }
