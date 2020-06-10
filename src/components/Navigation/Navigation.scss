@@ -13,18 +13,6 @@
   }
 }
 
-.light {
-  .Navigation {
-    background-color: $White;
-  }
-}
-
-.dark {
-  .Navigation {
-    background-color: $DarkBlueDarkModeElements;
-  }
-}
-
 .Navigation-left {
   font-size: 16px;
   font-weight: bold;
@@ -33,6 +21,10 @@
 .mode-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
+  .moonIcon {
+    margin: 0 8px;
+  }
 }
 
 .mode-text {

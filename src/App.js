@@ -3,7 +3,8 @@ import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./components/HomePage/HomePage";
 import CountryDetails from "./components/CountryDetails/CountryDetails";
 import "./App.scss";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Shadow from "./components/Shadow/Shadow";
 
 function App() {
   const [isModeLight, setIsModeLight] = useState(false);
@@ -17,7 +18,9 @@ function App() {
     fetch(getApiLink("region", selectedFilter))
       .then((response) => response.json())
       .then((data) => {
-        setFilteredCountriesData(data);
+        setFilteredCountriesData(
+          calculateSearchFilterResult(searchInputValue, data)
+        );
       });
   }, [selectedFilter]);
 
@@ -82,10 +85,12 @@ function App() {
   return (
     <div className="App">
       <div className={isModeLight ? "light" : "dark"}>
-        <Navigation
-          mode={isModeLight}
-          onModeClick={() => setIsModeLight(!isModeLight)}
-        />
+        <Shadow>
+          <Navigation
+            isModeLight={isModeLight}
+            onModeClick={() => setIsModeLight(!isModeLight)}
+          />
+        </Shadow>
         <Router>
           <Switch>
             <Route exact path="/">

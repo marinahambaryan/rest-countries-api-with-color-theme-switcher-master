@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./CountryDetails.scss";
 import DetailPageButton from "./DetailPageButton/DetailPageButton";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch,
-} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function CountryDetails(props) {
   const { countryName } = useParams();
@@ -44,7 +39,9 @@ function CountryDetails(props) {
             <Link to={`/`}>
               <DetailPageButton>
                 <div className="buttonInnerContainer">
-                  <span>---</span>
+                  <div className="backArrowIcon">
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                  </div>
                   <p>Back</p>
                 </div>
               </DetailPageButton>

@@ -12,6 +12,10 @@
 
       .buttonInnerContainer {
         display: flex;
+        align-items: center;
+        .backArrowIcon {
+          margin-right: 10px;
+        }
       }
     }
   }

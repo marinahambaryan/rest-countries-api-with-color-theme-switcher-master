@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Filter.scss";
+import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Filter(props) {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
@@ -15,7 +17,9 @@ function Filter(props) {
       <div className="select">
         <div className="selectedFilter">
           <p>{props.selectedFilter}</p>
-          <div onClick={handleDropdownChange}>></div>
+          <div onClick={handleDropdownChange}>
+            <FontAwesomeIcon icon={isSelectorOpen ? faAngleUp : faAngleDown} />
+          </div>
         </div>
         {isSelectorOpen ? (
           <div className="options">
